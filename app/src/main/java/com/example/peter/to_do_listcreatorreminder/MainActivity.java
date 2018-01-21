@@ -14,7 +14,7 @@ import com.example.peter.to_do_listcreatorreminder.util.DateUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupUI(@NonNull List<Todo> todo){
         ListView listView = (ListView) findViewById(R.id.main_list_view);
         listView.setAdapter(new TodoListAdapter(this, todo));
+
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.peter.to_do_listcreatorreminder;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,38 @@ public class TodoListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        //use view holder to avoid find view every time
+        ViewHolder vh;
+
+//        //generate interface, waste memory cache
+//        View view = LayoutInflater.from(context).inflate(R.layout.main_list_item, null);
+
+        //create view only if the view is not enough, or will just edit the old view and display it
+        if (convertView == null){
+            convertView = LayoutInflater.from(context).inflate(R.layout.main_list_item, parent, false);
+             vh = new ViewHolder();
+             //only find once
+            vh.todoText = (TextView) convertView.findViewById(R.id.main_list_item_text);
+            //cache the view holder
+            convertView.setTag(vh);
+        } else {
+            //use the cached view holder
+            vh = (ViewHolder) convertView.getTag();
+        }
+
+
         Todo todo = data.get(position);
-        View view = LayoutInflater.from(context).inflate(R.layout.main_list_item, null);
-        ((TextView) view.findViewById(R.id.main_list_item_text)).setText(todo.text);
-        return view;
+        vh.todoText.setText(todo.text);
+        return convertView;
+
+//        //edit the old view and become a new one, not efficient since need to findview every time
+//        ((TextView) convertView.findViewById(R.id.main_list_item_text)).setText(todo.text);
+//        return convertView;
+    }
+
+    //wrapper class
+    private static class ViewHolder{
+        TextView todoText;
     }
 }
