@@ -24,21 +24,14 @@ import java.lang.reflect.Type;
 
 public class ModelUtils {
 
-    private static Gson gsonForSerialization = new GsonBuilder()
-            .registerTypeAdapter(Uri.class, new UriSerializer())
-            .create();
-
-    private static Gson gsonForDeserialization = new GsonBuilder()
-            .registerTypeAdapter(Uri.class, new UriDeserializer())
-            .create();
-
+    private static Gson gson = new Gson();
     private static String PREF_NAME = "models";
 
     public static void save(Context context, String key, Object object) {
         SharedPreferences sp = context.getApplicationContext().getSharedPreferences(
                 PREF_NAME, Context.MODE_PRIVATE);
 
-        String jsonString = gsonForSerialization.toJson(object);
+        String jsonString = gson.toJson(object);
         sp.edit().putString(key, jsonString).apply();
     }
 
@@ -46,25 +39,19 @@ public class ModelUtils {
         SharedPreferences sp = context.getApplicationContext().getSharedPreferences(
                 PREF_NAME, Context.MODE_PRIVATE);
         try {
-            return gsonForDeserialization.fromJson(sp.getString(key, ""), typeToken.getType());
+            return gson.fromJson(sp.getString(key, ""), typeToken.getType());
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private static class UriSerializer implements JsonSerializer<Uri> {
-        @Override
-        public JsonElement serialize(Uri src, Type typeOfSrc, JsonSerializationContext context) {
-            return new JsonPrimitive(src.toString());
-        }
+    public static <T> T toObject(String json, TypeToken<T> typeToken) {
+        return gson.fromJson(json, typeToken.getType());
     }
 
-    private static class UriDeserializer implements JsonDeserializer<Uri> {
-        @Override
-        public Uri deserialize(JsonElement src, Type srcType, JsonDeserializationContext context) throws JsonParseException {
-            return Uri.parse(src.getAsString());
-        }
+    public static <T> String toString(T object, TypeToken<T> typeToken) {
+        return gson.toJson(object, typeToken.getType());
     }
 
 }

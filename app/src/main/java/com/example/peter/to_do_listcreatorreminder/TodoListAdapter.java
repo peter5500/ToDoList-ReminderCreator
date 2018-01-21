@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.peter.to_do_listcreatorreminder.models.Todo;
@@ -56,6 +57,7 @@ public class TodoListAdapter extends BaseAdapter {
              vh = new ViewHolder();
              //only find once
             vh.todoText = (TextView) convertView.findViewById(R.id.main_list_item_text);
+            vh.doneCheckbox = (CheckBox) convertView.findViewById(R.id.main_list_item_check);
             //cache the view holder
             convertView.setTag(vh);
         } else {
@@ -64,8 +66,9 @@ public class TodoListAdapter extends BaseAdapter {
         }
 
 
-        Todo todo = data.get(position);
+        final Todo todo = data.get(position);
         vh.todoText.setText(todo.text);
+        vh.doneCheckbox.setChecked(todo.done);
         return convertView;
 
 //        //edit the old view and become a new one, not efficient since need to findview every time
@@ -76,5 +79,6 @@ public class TodoListAdapter extends BaseAdapter {
     //wrapper class
     private static class ViewHolder{
         TextView todoText;
+        CheckBox doneCheckbox;
     }
 }

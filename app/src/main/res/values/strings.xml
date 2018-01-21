@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">To-Do-List Creator &amp; Reminder</string>
+    <string name="todo">todo</string>
+    <string name="completed">Completed</string>
 </resources>
