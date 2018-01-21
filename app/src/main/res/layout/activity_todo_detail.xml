@@ -91,11 +91,21 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/todo_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_gravity="end"
+            android:text="@string/action_delete"
+            />
+
 
 
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/todo_detail_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"

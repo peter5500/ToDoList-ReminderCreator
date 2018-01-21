@@ -1,25 +1,48 @@
 package com.example.peter.to_do_listcreatorreminder.util;
 
+import android.support.annotation.NonNull;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class DateUtils {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", Locale.getDefault());
+    private static DateFormat dateFormat =
+            new SimpleDateFormat("yyyy MM dd HH:mm", Locale.getDefault());
 
-    public static String dateToString(Date date) {
-        return sdf.format(date);
-    }
+    // "Wed, 09 30, 2016"
+    private static DateFormat dateFormatDate =
+            new SimpleDateFormat("EEE, MMM dd, yyyy", Locale.getDefault());
 
-    public static Date stringToDate(String dateString) {
+    // 12:59
+    private static DateFormat dateFormatTime =
+            new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+    @NonNull
+    public static Date stringToDate(@NonNull String string) {
         try {
-            return sdf.parse(dateString);
+            return dateFormat.parse(string);
         } catch (ParseException e) {
-            e.printStackTrace();
-            return new Date(0);
+            return Calendar.getInstance().getTime();
         }
     }
 
+    @NonNull
+    public static String dateToString(@NonNull Date date) {
+        return dateFormat.format(date);
+    }
+
+    @NonNull
+    public static String dateToStringDate(@NonNull Date date) {
+        return dateFormatDate.format(date);
+    }
+
+    @NonNull
+    public static String dateToStringTime(@NonNull Date date) {
+        return dateFormatTime.format(date);
+    }
 }
