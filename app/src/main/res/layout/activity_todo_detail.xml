@@ -98,7 +98,7 @@
             android:layout_marginTop="@dimen/spacing_small"
             android:layout_gravity="end"
             android:text="@string/action_delete"
-            />
+            style="@style/AppTheme.TextView.DeleteButton"/>
 
 
 

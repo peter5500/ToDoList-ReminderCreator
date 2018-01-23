@@ -3,7 +3,9 @@ package com.example.peter.to_do_listcreatorreminder;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ public class TodoEditActivity extends AppCompatActivity implements
 
     public static final String KEY_TODO = "todo";
     public static final String KEY_TODO_ID = "todo_id";
+    public static final String KEY_NOTIFICATION_ID = "notification_id";
 
     private EditText todoEdit;
     private TextView dateTv;
@@ -53,6 +56,7 @@ public class TodoEditActivity extends AppCompatActivity implements
                 : null; // if this activity is for creating a new todo_item, set remindDate to null
 
         setupUI();
+        cancelNotificationIfNeeded();
     }
 
     @Override
@@ -62,6 +66,13 @@ public class TodoEditActivity extends AppCompatActivity implements
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void cancelNotificationIfNeeded() {
+        int notificationId = getIntent().getIntExtra(KEY_NOTIFICATION_ID, -1);
+        if (notificationId != -1) {
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(notificationId);
+        }
     }
 
     private void setupActionbar() {
@@ -199,9 +210,8 @@ public class TodoEditActivity extends AppCompatActivity implements
 
         todo.done = completeCb.isChecked();
 
-        if (remindDate != null) {
-            // fire alarm when saving the todo_item
-            AlarmUtils.setAlarm(this, remindDate);
+        if (todo.remindDate != null) {
+            AlarmUtils.setAlarm(this, todo);
         }
 
         Intent result = new Intent();

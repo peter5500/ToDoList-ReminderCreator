@@ -19,8 +19,10 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
     public static final int REQ_CODE_TODO_EDIT = 100;
+
     private static final String TODOS = "todos";
 
     private TodoListAdapter adapter;
@@ -104,21 +106,5 @@ public class  MainActivity extends AppCompatActivity {
         if (todos == null) {
             todos = new ArrayList<>();
         }
-    }
-
-    @NonNull
-    private List<Todo> mockData() {
-        List<Todo> list = new ArrayList<>();
-        for (int i = 0; i < 1000; ++i) {
-            list.add(new Todo("todo " + i, DateUtils.stringToDate("2015 7 29 0:00")));
-        }
-        return list;
-    }
-
-    private void setupUI(@NonNull List<Todo> todo){
-        ListView listView = (ListView) findViewById(R.id.main_list_view);
-        listView.setAdapter(new TodoListAdapter(this, todo));
-
-
     }
 }
