@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.peter.to_do_listcreatorreminder.MainActivity">
 
-    <ListView
-        android:id="@+id/main_list_view"
+    <android.support.v7.app.AlertController.RecycleListView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#ffeeeeee"
-        android:dividerHeight="2dp"/>
+        android:layout_height="match_parent">
+
+    </android.support.v7.app.AlertController.RecycleListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

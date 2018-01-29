@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.peter.to_do_listcreatorreminder.models.Todo;
-import com.example.peter.to_do_listcreatorreminder.util.DateUtils;
 import com.example.peter.to_do_listcreatorreminder.util.ModelUtils;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TODOS = "todos";
 
-    private TodoListAdapter adapter;
+    private OldTodoListAdapter adapter;
     private List<Todo> todos;
 
     @Override
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
 
-        adapter = new TodoListAdapter(this, todos);
+        adapter = new OldTodoListAdapter(this, todos);
         ((ListView) findViewById(R.id.main_list_view)).setAdapter(adapter);
     }
 
